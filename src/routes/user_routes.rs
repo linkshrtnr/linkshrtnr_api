@@ -1,8 +1,11 @@
-use axum::{Router, routing::{post, get, put, delete}, Json, http::StatusCode};
+use axum::{
+    http::StatusCode,
+    routing::{delete, get, post, put},
+    Json, Router,
+};
 use serde::{Deserialize, Serialize};
 
-
-pub fn get_routes() -> Router{
+pub fn get_routes() -> Router {
     Router::new()
         .route("/users", get(get_user))
         .route("/users", post(create_user))
@@ -25,7 +28,7 @@ async fn create_user(
     (StatusCode::CREATED, Json(user))
 }
 async fn get_user() -> &'static str {
-    "Hello, World!!!!!"
+    "Hello, from github actions!"
 }
 async fn update_user() -> &'static str {
     todo!()
