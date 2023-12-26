@@ -4,8 +4,8 @@ use serde::{Deserialize, Serialize};
 
 pub fn get_routes() -> Router{
     Router::new()
+        .route("/users", get(get_user))
         .route("/users", post(create_user))
-        .route("/users/:id", get(get_user))
         .route("/users/:id", put(update_user))
         .route("/users/:id", delete(delete_user))
 }
@@ -25,7 +25,7 @@ async fn create_user(
     (StatusCode::CREATED, Json(user))
 }
 async fn get_user() -> &'static str {
-    todo!()
+    "Hello, World!!!!!"
 }
 async fn update_user() -> &'static str {
     todo!()
