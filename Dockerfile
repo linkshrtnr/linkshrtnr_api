@@ -4,7 +4,7 @@
 # If you need more help, visit the Dockerfile reference guide at
 # https://docs.docker.com/go/dockerfile-reference/
 
-ARG RUST_VERSION=1.74.0
+ARG RUST_VERSION=1.74.1
 ARG APP_NAME=linkshrtnr-rust-api
 
 ################################################################################
