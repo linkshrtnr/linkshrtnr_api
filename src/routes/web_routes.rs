@@ -1,9 +1,9 @@
 use askama::Template;
 use axum::{
     http::StatusCode,
-    response::{Html, IntoResponse},
+    response::{Html, IntoResponse, Response},
     routing::get,
-    Response, Router,
+     Router,
 };
 
 pub fn get_routes() -> Router {
@@ -13,6 +13,7 @@ async fn get_index() -> impl IntoResponse {
     let template = HelloTemplate {};
     HtmlTemplate(template)
 }
+
 #[derive(Template)]
 #[template(path = "index.html")]
 struct HelloTemplate;
