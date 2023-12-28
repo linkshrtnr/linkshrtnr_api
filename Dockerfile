@@ -4,7 +4,7 @@
 # If you need more help, visit the Dockerfile reference guide at
 # https://docs.docker.com/go/dockerfile-reference/
 
-ARG RUST_VERSION=1.74.1
+ARG RUST_VERSION=1.74.0
 ARG APP_NAME=linkshrtnr-rust-api
 
 ################################################################################
@@ -18,6 +18,7 @@ FROM --platform=$BUILDPLATFORM rust:${RUST_VERSION}-alpine AS build
 ARG APP_NAME
 WORKDIR /app
 
+COPY /templates /app/templates
 # Copy cross compilation utilities from the xx stage.
 COPY --from=xx / /
 
@@ -81,7 +82,7 @@ USER appuser
 COPY --from=build /bin/server /bin/
 
 # Expose the port that the application listens on.
-EXPOSE 3000
+EXPOSE 3000 
 
 # What the container should run when it is started.
 CMD ["/bin/server"]
