@@ -1,11 +1,12 @@
+mod http;
 mod routes;
-use anyhow::Context;
-use axum::Router;
-use tower_http::services::ServeDir;
+use dotenv::dotenv;
+use sqlx::postgres::PgPoolOptions;
 use tracing::info;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
+    dotenv().ok();
     // Debug
     std::env::set_var("RUST_LOG", "info");
     tracing_subscriber::registry()
@@ -15,23 +16,19 @@ async fn main() -> anyhow::Result<()> {
         )
         .with(tracing_subscriber::fmt::layer())
         .init();
-    
+
     info!("Initialized router!");
+    let url = dotenv::var("DATABASE_URL").expect("DATABASE_URL is not set in .env file");
 
-    let assets_path = std::env::current_dir().unwrap();
-    let port = 3000_u16;
-    let addr = std::net::SocketAddr::from(([0, 0, 0, 0], port));
+    let mut sqlx_connection = PgPoolOptions::new()
+        .max_connections(250) // TODO: Set this to a reasonable value
+        .connect(&url)
+        .await
+        .unwrap();
 
-    // build our application with a route
-    let app = Router::new()
-        .nest("/", routes::web_routes::get_routes()).nest_service(
-        "/assets",
-        ServeDir::new(format!("{}/assets", assets_path.to_str().unwrap())),
-    )
-        .nest("/api", routes::user_routes::get_routes())
-        .nest("/l", routes::link_routes::get_routes());
-    let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
-    info!("router initialized, now listening on port {}", port);
-    axum::serve(listener, app).await.unwrap();
+    sqlx::migrate!("./migrations").run(&sqlx_connection).await?;
+
+    http::serve(sqlx_connection).await?;
+
     Ok(())
 }
