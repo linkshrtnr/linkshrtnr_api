@@ -1,0 +1,31 @@
+<div class="w-96">
+
+  <ul data-tabs>
+    <li><a data-tabby-default href="#url">Shorten URL</a></li>
+    <li><a href="#qr-code">Generate QR Code</a></li>
+  </ul>
+  
+  
+  <form hx-post="/api/link" hx-swap="none" id="url" class="flex flex-col border-x border-b border-[#d3d3d3] p-5 rounded-b gap-3">
+    <label for="original_url"><strong>Original URL</strong></label>
+      <input class="p-3 border rounded border-[#d3d3d3]" name="original_url" type="text" placeholder="https://my-long-url.com/some-path">
+
+    <label for="path"><strong>Path</strong></label>
+    <div class="flex">
+      <input class="w-1/2 p-3 border rounded border-[#d3d3d3]" type="text" value="linkshrtnr.com/l/" disabled>
+      <input class="w-1/2 p-3 border rounded border-[#d3d3d3]" name="path" type="text" placeholder="your-url">
+    </div>
+    <button  class="bg-[#FFDC61] w-full py-3 text-black mt-4 font-black">Shorten link</button>
+  </form>
+  
+  <div id="qr-code"class="border-x border-b border-[#d3d3d3] p-5 rounded-b ">
+    <p><strong>Fun Facts:</strong></p>
+    <ol>
+      <li>The real hero of the Harry Potter series</li>
+      <li>Underappreciated by her friends, but always saves the day</li>
+      <li>Harry somehow gets credit for her accomplishments on a regular basis</li>
+    </ol>
+    <p><a href="https://en.wikipedia.org/wiki/Hermione_Granger">More about Hermione &rarr;</a></p>
+  </div>
+  
+</div>

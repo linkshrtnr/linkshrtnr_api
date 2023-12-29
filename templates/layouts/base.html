@@ -4,6 +4,9 @@
     <link href="/assets/main.css" rel="stylesheet" />
     <link href="/assets/custom.css" rel="stylesheet" />
     <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/cferdinandi/tabby@12.0/dist/css/tabby-ui.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/tabby@12.0/dist/js/tabby.polyfills.min.js"></script>
+
     <!-- Allow any inheriting page to set it's own title -->
     <title>{% block title %}{{ title }}{% endblock %}</title>
     <!-- htmx from the unpkg CDN - your mileage may vary -->
@@ -16,5 +19,8 @@
       <!-- Inheriting pages will have their content rendered here, similar to app root in React, Angular, etc. -->
       {% block content %}{% endblock %}
     </main>
+    <script>
+	var tabs = new Tabby('[data-tabs]');
+  </script>
   </body>
 </html>
