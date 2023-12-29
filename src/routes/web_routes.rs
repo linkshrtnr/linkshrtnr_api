@@ -3,7 +3,7 @@ use axum::{
     http::StatusCode,
     response::{Html, IntoResponse, Response},
     routing::get,
-     Router,
+    Router,
 };
 
 pub fn get_routes() -> Router {
@@ -17,7 +17,7 @@ async fn get_another_page() -> impl IntoResponse {
 }
 
 #[derive(Template)]
-#[template(path = "another_page.html")]
+#[template(path = "pages/another_page.html")]
 struct AnotherPageTemplate;
 
 async fn get_index() -> impl IntoResponse {
@@ -26,7 +26,7 @@ async fn get_index() -> impl IntoResponse {
 }
 
 #[derive(Template)]
-#[template(path = "index.html")]
+#[template(path = "pages/index.html")]
 struct HelloTemplate;
 struct HtmlTemplate<T>(T);
 

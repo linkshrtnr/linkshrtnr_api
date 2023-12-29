@@ -1,12 +1,11 @@
 <!-- prettier-ignore -->
-{% extends "base.html" %}
+{% extends "layouts/base.html" %}
 {% block title %}Hello!{% endblock %}
 {% block content %}
 <div class="flex flex-col items-center flex-1 w-full gap-20 border">
   <nav class="flex justify-center w-full h-16">
     <div class="flex items-center justify-between w-full max-w-4xl p-3 text-sm">
-      <Logo />
-      <!-- {isSupabaseConnected && <AuthButton />} -->
+    {% include "components/logo.html" %} 
     </div>
   </nav>
 
