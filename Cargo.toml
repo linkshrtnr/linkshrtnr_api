@@ -2,7 +2,7 @@
 name = "linkshrtnr-rust-api"
 version = "0.1.0"
 edition = "2021"
-
+default-run = "linkshrtnr-rust-api"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
@@ -16,3 +16,5 @@ tower = "0.4.13"
 tower-http = { version = "0.5.0", features = ["fs"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.10" }
+prisma-client-rust-cli = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.10" }
