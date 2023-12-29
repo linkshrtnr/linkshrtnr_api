@@ -1,1 +1,45 @@
-<h1>hello</h1>
+<!-- prettier-ignore -->
+{% extends "base.html" %}
+{% block title %}Hello!{% endblock %}
+{% block content %}
+<div class="flex flex-col items-center flex-1 w-full gap-20 border">
+  <nav class="flex justify-center w-full h-16">
+    <div class="flex items-center justify-between w-full max-w-4xl p-3 text-sm">
+      <Logo />
+      <!-- {isSupabaseConnected && <AuthButton />} -->
+    </div>
+  </nav>
+
+  <div class="flex flex-col flex-1 max-w-4xl gap-20 px-3 opacity-0 animate-in">
+    <main class="flex flex-col items-center flex-1 gap-6">
+      <h2 class="text-6xl font-bold">
+        Make sharing content
+        <span class="text-[rgb(234,198,67)]">easy</span>
+      </h2>
+
+      <div class="mb-4 text-2xl font-light text-center">
+        <span class="font-light">
+          Create short links, QR Codes, Link-in-bio pages and share them.
+        </span>
+        <br />
+        <span> Have the insights of your audience and manage your links. </span>
+      </div>
+      <MainSelector />
+    </main>
+  </div>
+
+  <footer class="flex justify-center w-full p-8 text-xs text-center border-t">
+    <p>
+      Made by
+      <a
+        href="https://twitter.com/ikurotime"
+        target="_blank"
+        class="font-bold hover:underline"
+        rel="noreferrer"
+      >
+        kuro
+      </a>
+    </p>
+  </footer>
+</div>
+{% endblock %}
