@@ -18,3 +18,4 @@ tracing = "0.1.40"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 sqlx = { version = "0.6", features = ["postgres", "runtime-tokio-rustls"] }
 dotenv = "0.15.0"
+rand = "0.8.5"

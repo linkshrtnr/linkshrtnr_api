@@ -32,5 +32,5 @@ fn router() -> Router {
             ServeDir::new(format!("{}/assets", assets_path.to_str().unwrap())),
         )
         .nest("/api", routes::user_routes::get_routes())
-        .nest("/link", routes::link_routes::get_routes())
+        .nest("/api/link", routes::link_routes::get_routes())
 }

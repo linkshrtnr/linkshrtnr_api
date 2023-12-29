@@ -769,6 +769,7 @@ dependencies = [
  "askama",
  "axum",
  "dotenv",
+ "rand",
  "serde",
  "serde_json",
  "sqlx",
