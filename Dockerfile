@@ -19,7 +19,7 @@ ARG APP_NAME
 WORKDIR /app
 
 COPY /templates /app/templates
-# Copy cross compilation utilities from the xx stage.
+# Copy cross-compilation utilities from the xx stage.
 COPY --from=xx / /
 
 # Install host build dependencies.
@@ -29,7 +29,7 @@ RUN apk add --no-cache clang lld musl-dev git file
 # Placing it here allows the previous steps to be cached across architectures.
 ARG TARGETPLATFORM
 
-# Install cross compilation build dependencies.
+# Install cross-compilation build dependencies.
 RUN xx-apk add --no-cache musl-dev gcc
 
 # Build the application.
@@ -52,6 +52,35 @@ xx-cargo build --locked --release --target-dir ./target
 cp ./target/$(xx-cargo --print-target-triple)/release/$APP_NAME /bin/server
 xx-verify /bin/server
 EOF
+
+FROM node:buster-slim as node_builder
+
+WORKDIR /app
+
+# we'll use pnpm to ensure we're consistent across the dev and release environments
+RUN corepack enable
+
+# copy on over all the dependencies
+COPY tailwind.config.js .
+COPY styles /app/styles
+COPY assets /app/assets
+
+# we'll also copy the templates over so tailwind can scan for unused class utilities, omitting them from the final output
+COPY templates /app/templates
+
+# build our css
+RUN pnpm dlx tailwindcss -i ./styles/tailwind.css -o /app/assets/main.css
+
+# stage 3, copy over our build artifacts and run
+# We do not need the Rust toolchain to run the binary!
+FROM debian:buster-slim AS runtime
+
+WORKDIR /app
+
+# we'll copy over the executable from our server builder and the compiled tailwind assets separately - layer caching FTW!
+COPY --from=build /bin/server /bin/
+COPY --from=node_builder /app/assets ./assets
+COPY --from=node_builder /app/templates ./templates
 
 ################################################################################
 # Create a new stage for running the application that contains the minimal
@@ -80,6 +109,8 @@ USER appuser
 
 # Copy the executable from the "build" stage.
 COPY --from=build /bin/server /bin/
+COPY --from=node_builder /app/assets ./assets
+COPY --from=node_builder /app/templates ./templates
 
 # Expose the port that the application listens on.
 EXPOSE 3000 
