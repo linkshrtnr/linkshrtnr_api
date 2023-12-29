@@ -19,6 +19,7 @@ ARG APP_NAME
 WORKDIR /app
 
 COPY /templates /app/templates
+COPY /migrations /app/migrations
 # Copy cross-compilation utilities from the xx stage.
 COPY --from=xx / /
 
@@ -64,7 +65,6 @@ RUN corepack enable
 COPY tailwind.config.js .
 COPY styles /app/styles
 COPY assets /app/assets
-
 # we'll also copy the templates over so tailwind can scan for unused class utilities, omitting them from the final output
 COPY templates /app/templates
 
