@@ -1,31 +1,77 @@
-<div class="w-96">
-
+<div class="w-11/12">
   <ul data-tabs>
-    <li><a data-tabby-default href="#url">Shorten URL</a></li>
-    <li><a href="#qr-code">Generate QR Code</a></li>
+    <li class="bg-white rounded-t-lg">
+      <a data-tabby-default href="#url">Shorten URL</a>
+    </li>
+    <li class="bg-white rounded-t-lg">
+      <a href="#qr-code">Generate QR Code</a>
+    </li>
   </ul>
-  
-  
-  <form hx-post="/api/link" hx-swap="none" id="url" class="flex flex-col border-x border-b border-[#d3d3d3] p-5 rounded-b gap-3">
-    <label for="original_url"><strong>Original URL</strong></label>
-      <input class="p-3 border rounded border-[#d3d3d3]" name="original_url" type="text" placeholder="https://my-long-url.com/some-path">
+  <div
+    id="url"
+    class="flex flex-col p-5 bg-white border-x border-b border-[#d3d3d3] gap-3"
+  >
+    <p class="text-2xl"><strong>Shorten a long URL:</strong></p>
+    <form
+      hx-post="/api/link"
+      hx-swap="none"
+      class="flex flex-col rounded-b gap-3"
+    >
+      <label class="text-xl" for="original_url"
+        ><strong>Paste a long URL</strong></label
+      >
+      <input
+        class="p-3 border rounded border-[#d3d3d3]"
+        name="original_url"
+        type="text"
+        placeholder="https://my-long-url.com/some-path"
+      />
 
-    <label for="path"><strong>Path</strong></label>
-    <div class="flex">
-      <input class="w-1/2 p-3 border rounded border-[#d3d3d3]" type="text" value="linkshrtnr.com/l/" disabled>
-      <input class="w-1/2 p-3 border rounded border-[#d3d3d3]" name="path" type="text" placeholder="your-url">
-    </div>
-    <button  class="bg-[#FFDC61] w-full py-3 text-black mt-4 font-black">Shorten link</button>
-  </form>
-  
-  <div id="qr-code"class="border-x border-b border-[#d3d3d3] p-5 rounded-b ">
-    <p><strong>Fun Facts:</strong></p>
-    <ol>
-      <li>The real hero of the Harry Potter series</li>
-      <li>Underappreciated by her friends, but always saves the day</li>
-      <li>Harry somehow gets credit for her accomplishments on a regular basis</li>
-    </ol>
-    <p><a href="https://en.wikipedia.org/wiki/Hermione_Granger">More about Hermione &rarr;</a></p>
+      <label class="text-xl" for="path"><strong>Path</strong></label>
+      <div class="flex">
+        <input
+          class="w-1/2 p-3 border rounded border-[#d3d3d3]"
+          type="text"
+          value="lurl.es/"
+          disabled
+        />
+        <input
+          class="w-1/2 p-3 border rounded border-[#d3d3d3]"
+          name="path"
+          type="text"
+          placeholder="your-url"
+        />
+      </div>
+      <img id="indicator" class="htmx-indicator" src="/loading.gif" />
+
+      <button class="bg-black w-full py-3 text-white mt-4 font-bold">
+        Shorten link
+      </button>
+    </form>
   </div>
-  
+
+  <div
+    id="qr-code"
+    class="flex flex-col bg-white p-5 rounded-b border-x border-b border-[#d3d3d3] gap-3"
+  >
+    <p><strong>QR Code:</strong></p>
+
+    <form
+      hx-post="/api/qr"
+      hx-swap="none"
+      id="url"
+      class="flex flex-col rounded-b gap-3"
+    >
+      <label for="original_url"><strong>Original URL</strong></label>
+      <input
+        class="p-3 border rounded border-[#d3d3d3]"
+        name="original_url"
+        type="text"
+        placeholder="https://my-long-url.com/some-path"
+      />
+      <button class="bg-black w-full py-3 text-white mt-4 font-bold">
+        Generate QR Code
+      </button>
+    </form>
+  </div>
 </div>

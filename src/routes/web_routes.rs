@@ -21,13 +21,13 @@ async fn get_another_page() -> impl IntoResponse {
 struct AnotherPageTemplate;
 
 async fn get_index() -> impl IntoResponse {
-    let template = HelloTemplate {};
+    let template = IndexTemplate{};
     HtmlTemplate(template)
 }
 
 #[derive(Template)]
 #[template(path = "pages/index.html")]
-struct HelloTemplate;
+struct IndexTemplate;
 struct HtmlTemplate<T>(T);
 
 impl<T> IntoResponse for HtmlTemplate<T>

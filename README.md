@@ -33,14 +33,18 @@ Follow these steps to get LinkShrtnr up and running:
    cd linkshrinker
    ```
 2. Set up your environment variables:
-  ```bash
-  cp .env.example .env
-  ```
-  Fill in the necessary information in the .env file.
+
+```bash
+cp .env.example .env
+```
+
+Fill in the necessary information in the .env file.
 3.Run the application
-  ```bash
-  cargo run
-  ``` 
+
+```bash
+cargo run
+```
+
 4. Navigate to http://localhost:3000 to view the application.
 
 ## Features 🌟
@@ -61,6 +65,4 @@ Follow these steps to get LinkShrtnr up and running:
 
 Contributions are welcome! Feel free to open issues, submit pull requests, or share your ideas.
 
-
 Enjoy shrinking your links with LinkShrtnr! 🚀
-

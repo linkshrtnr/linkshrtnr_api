@@ -5,13 +5,11 @@ use rand::Rng;
 use serde::Deserialize;
 use sqlx::{Error, PgPool};
 use tracing::info;
+
 #[derive(sqlx::FromRow, Debug, Deserialize)] // Add this line
 struct LinkRequest {
     original_url: String,
     path: String,
-}
-struct LinkResponse {
-    link: String,
 }
 
 pub fn get_routes() -> Router {
