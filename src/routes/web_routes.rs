@@ -12,7 +12,16 @@ pub fn get_routes() -> Router {
         .route("/another_page", get(get_another_page))
         .route("/register", get(get_register))
         .route("/login", get(get_login))
+        .route("/404", get(get_not_found))
 }
+async fn get_not_found() -> impl IntoResponse {
+    let template = NotFoundPageTemplate {};
+    HtmlTemplate(template)
+}
+
+#[derive(Template)]
+#[template(path = "pages/404.html")]
+struct NotFoundPageTemplate;
 
 async fn get_login() -> impl IntoResponse {
     let template = LoginPageTemplate {};
