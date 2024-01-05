@@ -21,7 +21,7 @@ jobs:
           echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Generate .env for DB Types
         run: |
-          echo DATABASE_URL=${{ env.DATABASE_URL }} > .env
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} > .env
       - name: Build and Publish
         run: |
           docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
