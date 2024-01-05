@@ -33,7 +33,7 @@ async fn add_link(
     //return html
 
     Ok(format!(
-        "<div>Your link: <a href=\"http://localhost:3001/{}\" target=\"_blank\">https://lurl.es/{}</a></div>",
+        "<div>Your link: <a href=\"http://lurl.es/{}\" target=\"_blank\">https://lurl.es/{}</a></div>",
         link.short_url, link.short_url
     ))
 }
