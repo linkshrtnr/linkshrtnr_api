@@ -1,6 +1,6 @@
 use crate::{
     http::ApiContext,
-    structs::{LoginRequest, LoginResponse, RegisterRequest, User},
+    structs::{LoginRequest, LoginResponse, RegisterRequest},
 };
 
 use axum::{
@@ -11,7 +11,7 @@ use axum::{
     Extension, Form, Json, Router,
 };
 use bcrypt::DEFAULT_COST;
-use sqlx::{Error, PgPool};
+use sqlx::{Error, PgPool, Row};
 
 pub fn get_routes() -> Router {
     Router::new()
@@ -34,29 +34,18 @@ async fn login(
 }
 
 async fn get_user(username: &str, password: &str, pool: &PgPool) -> Result<LoginResponse, Error> {
-    let user = sqlx::query_as!(
-        User,
-        "SELECT id, name, email, password FROM users WHERE name = $1",
-        username,
-    )
-    .fetch_one(pool)
-    .await
-    .map_err(|e| match e {
-        sqlx::Error::RowNotFound => Error::RowNotFound,
-        _ => e.into(),
-    })?;
+    let q = "SELECT id, name, email, password FROM users WHERE name = $1";
+    let user = sqlx::query(q).bind(&username).fetch_one(pool).await?;
+    let hashed_password = user.try_get::<String, _>("password")?;
 
-    let pswd = user.password.ok_or(Error::RowNotFound)?;
-    bcrypt::verify(password, &pswd).map_err(|_| Error::RowNotFound)?;
+    bcrypt::verify(password, &hashed_password).map_err(|_| Error::RowNotFound)?;
 
-    let name = user.name.ok_or(Error::RowNotFound)?;
-    let email = user.email.ok_or(Error::RowNotFound)?;
-
-    Ok(LoginResponse {
-        id: user.id,
-        name,
-        email,
-    })
+    let response = LoginResponse {
+        id: user.try_get("id")?,
+        name: user.try_get("name")?,
+        email: user.try_get("email")?,
+    };
+    Ok(response)
 }
 
 async fn register(ctx: Extension<ApiContext>, Form(payload): Form<RegisterRequest>) -> StatusCode {
