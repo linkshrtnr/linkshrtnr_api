@@ -19,11 +19,9 @@ jobs:
       - name: Login
         run: |
           echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-      - name: Generate .env for DB Types
-        run: |
-          echo DATABASE_URL=${{ secrets.DATABASE_URL }} > .env
       - name: Build and Publish
         run: |
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} > .env
           docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
