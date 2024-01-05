@@ -1,9 +1,12 @@
 mod http;
 mod routes;
+mod structs;
+
 use dotenv::dotenv;
 use sqlx::postgres::PgPoolOptions;
 use tracing::info;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     dotenv().ok();

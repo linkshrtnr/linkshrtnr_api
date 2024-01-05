@@ -38,12 +38,11 @@ async fn insert_link(payload: &LinkRequest, pool: &PgPool) -> Result<(), Error> 
         payload.path.clone()
     };
 
-    let _insertion =
-        sqlx::query("INSERT INTO \"Links\" (original_url, short_url) VALUES ($1, $2);")
-            .bind(&payload.original_url)
-            .bind(&path)
-            .execute(pool)
-            .await?;
+    let _insertion = sqlx::query("INSERT INTO links (original_url, short_url) VALUES ($1, $2);")
+        .bind(&payload.original_url)
+        .bind(&path)
+        .execute(pool)
+        .await?;
 
     Ok(())
 }
