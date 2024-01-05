@@ -14,8 +14,9 @@
     <p class="text-2xl"><strong>Shorten a long URL:</strong></p>
     <form
       hx-post="/api/link"
-      hx-swap="none"
-      class="flex flex-col rounded-b gap-3"
+      hx-target="#response-div"
+      hx-swap="innerHTML"
+      class="flex flex-col gap-3 rounded-b"
     >
       <label class="text-xl" for="original_url"
         ><strong>Paste a long URL</strong></label
@@ -42,9 +43,8 @@
           placeholder="your-url"
         />
       </div>
-      <img id="indicator" class="htmx-indicator" src="/loading.gif" />
-
-      <button class="bg-black w-full py-3 text-white mt-4 font-bold">
+      <div id="response-div"></div>
+      <button class="w-full py-3 mt-4 font-bold text-white bg-black">
         Shorten link
       </button>
     </form>
@@ -56,12 +56,7 @@
   >
     <p><strong>QR Code:</strong></p>
 
-    <form
-      hx-post="/api/qr"
-      hx-swap="none"
-      id="url"
-      class="flex flex-col rounded-b gap-3"
-    >
+    <form hx-post="/api/qr" id="url" class="flex flex-col gap-3 rounded-b">
       <label for="original_url"><strong>Original URL</strong></label>
       <input
         class="p-3 border rounded border-[#d3d3d3]"
@@ -69,7 +64,7 @@
         type="text"
         placeholder="https://my-long-url.com/some-path"
       />
-      <button class="bg-black w-full py-3 text-white mt-4 font-bold">
+      <button class="w-full py-3 mt-4 font-bold text-white bg-black">
         Generate QR Code
       </button>
     </form>
