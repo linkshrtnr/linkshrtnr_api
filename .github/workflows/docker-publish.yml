@@ -23,7 +23,7 @@ jobs:
         run: |
           echo " " >> Cargo.toml
           echo [env] >> Cargo.toml
-          echo DATABASE_URL = ${{ secrets.DATABASE_URL }} >> Cargo.toml
+          echo DATABASE_URL = "${{ secrets.DATABASE_URL }}" >> Cargo.toml
           docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
