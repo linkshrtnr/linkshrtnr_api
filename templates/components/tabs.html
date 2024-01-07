@@ -44,6 +44,8 @@
         />
       </div>
       <div id="response-div"></div>
+<div class="hidden p-2 text-green-900 bg-green-300 border-2 border-green-600"></div>
+<div class="hidden p-2 text-red-900 bg-red-300 border-2 border-red-600">Something went wrong</div>
       <button class="w-full py-3 mt-4 font-bold text-white bg-black">
         Shorten link
       </button>
@@ -56,7 +58,13 @@
   >
     <p><strong>QR Code:</strong></p>
 
-    <form hx-post="/api/qr" id="url" class="flex flex-col gap-3 rounded-b">
+    <form
+      hx-post="/api/qrcode"
+      id="url"
+      hx-target="#response-div-qr"
+      hx-swap="innerHTML"
+      class="flex flex-col gap-3 rounded-b"
+    >
       <label for="original_url"><strong>Original URL</strong></label>
       <input
         class="p-3 border rounded border-[#d3d3d3]"
@@ -67,6 +75,7 @@
       <button class="w-full py-3 mt-4 font-bold text-white bg-black">
         Generate QR Code
       </button>
+      <div id="response-div-qr" class="flex items-center justify-center w-full"></div"
     </form>
   </div>
 </div>

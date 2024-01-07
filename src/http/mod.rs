@@ -34,4 +34,5 @@ fn router() -> Router {
         .nest("/api", routes::user_routes::get_routes())
         .nest("/api/link", routes::link_routes::get_routes())
         .nest("/api/auth", routes::auth_routes::get_routes())
+        .nest("/api/qrcode", routes::qrcode_routes::get_routes())
 }

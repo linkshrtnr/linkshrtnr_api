@@ -24,7 +24,7 @@ async fn main() -> anyhow::Result<()> {
     let url = dotenv::var("DATABASE_URL").expect("DATABASE_URL is not set in .env file");
 
     let sqlx_connection = PgPoolOptions::new()
-        .max_connections(250) // TODO: Set this to a reasonable value
+        .max_connections(95) // TODO: Set this to a reasonable value
         .connect(&url)
         .await
         .unwrap();

@@ -1,19 +1,12 @@
-use crate::http::ApiContext;
-use axum::{http::StatusCode, routing::post, Extension, Form, Router};
+use crate::{
+    http::ApiContext,
+    structs::{LinkRequest, LinkResponse},
+};
+use axum::{routing::post, Extension, Form, Router};
 use rand;
 use rand::Rng;
-use serde::Deserialize;
 use sqlx::{Error, PgPool, Row};
 
-#[derive(sqlx::FromRow, Debug, Deserialize)] // Add this line
-struct LinkRequest {
-    original_url: String,
-    path: String,
-}
-#[derive(sqlx::FromRow, Debug, Deserialize)] // Add this line
-struct LinkResponse {
-    short_url: String,
-}
 pub fn get_routes() -> Router {
     Router::new().route("/", post(add_link))
 }
@@ -21,19 +14,19 @@ pub fn get_routes() -> Router {
 async fn add_link(
     ctx: Extension<ApiContext>,
     Form(payload): Form<LinkRequest>,
-) -> Result<String, StatusCode> {
+) -> Result<String, String> {
     // Store the links in the database
     let link = match insert_link(&payload, &ctx.db).await {
         Ok(link) => link,
         Err(err) => {
             eprintln!("Error inserting link: {}", err);
-            return Err(StatusCode::INTERNAL_SERVER_ERROR);
+            return Err("<div class=\"p-2 animate-in text-red-900 bg-red-300 border-2 border-red-600\">Something went wrong</div>".to_string());
         }
     };
     //return html
 
     Ok(format!(
-        "<div>Your link: <a href=\"http://lurl.es/{}\" target=\"_blank\">https://lurl.es/{}</a></div>",
+        "<div class=\"p-2 text-green-900 animate-in bg-green-300 border-2 border-green-600\">Your link: <a href=\"http://lurl.es/{}\" target=\"_blank\">https://lurl.es/{}</a></div>",
         link.short_url, link.short_url
     ))
 }

@@ -20,3 +20,4 @@ sqlx = { version = "0.6", features = ["postgres", "runtime-tokio-rustls"] }
 dotenv = "0.15.0"
 rand = "0.8.5"
 bcrypt = "0.15.0"
+qrcode = "0.13.0"
