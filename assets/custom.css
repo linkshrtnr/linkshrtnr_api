@@ -6,7 +6,12 @@
     @apply bg-background text-foreground;
   }
 }
-
+.error-message {
+  color: red;
+}
+.error input {
+  box-shadow: 0 0 3px #cc0000;
+}
 .animate-in {
   animation: animateIn 0.3s ease 0.15s both;
 }
