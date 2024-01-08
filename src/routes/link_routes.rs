@@ -40,7 +40,7 @@ async fn add_link(
     //return html
 
     Ok(format!(
-        "<div class=\"p-2 text-green-900 animate-in bg-green-300 border-2 border-green-600\">Your link: <a href=\"http://localhost:3001/{}\" target=\"_blank\">http://localhost:3001/{}</a></div>",
+        "<div class=\"p-2 text-green-900 animate-in bg-green-300 border-2 border-green-600\">Your link: <a href=\"https://lurl.es/{}\" target=\"_blank\">http://lurl.es/{}</a></div>",
         link.short_url, link.short_url
     ))
 }
