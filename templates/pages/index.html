@@ -3,10 +3,12 @@
 {% block title %}Hello!{% endblock %}
 {% block content %}
 <div
-  class="flex flex-col text-[#2a2e30] items-center flex-1 bg-[#f5f6f7] w-full "
+  class="flex flex-col text-[#2a2e30] items-center flex-1 bg-[#f5f6f7] w-full"
 >
   {% include "components/navbar.html" %}
-  <div class="flex flex-col flex-1 max-w-7xl m-20 px-3 opacity-0 animate-in">
+  <div
+    class="flex flex-col flex-1 px-3 my-20 opacity-0 sm:m-20 max-w-7xl animate-in"
+  >
     <main class="flex flex-col items-center flex-1 gap-6">
       <h2 class="text-6xl font-bold text-center">
         Make sharing content
@@ -23,8 +25,6 @@
       {% include "components/tabs.html" %}
     </main>
   </div>
-  {% include "components/companies.html" %}
-  {% include "components/landing_cta.html" %}
   {% include "components/footer.html" %}
 </div>
 {% endblock %}

@@ -5,7 +5,6 @@ use crate::{
 use axum::{routing::post, Extension, Form, Router};
 use rand;
 use rand::Rng;
-use serde::Deserialize;
 use sqlx::{Error, PgPool, Row};
 
 pub fn get_routes() -> Router {
@@ -25,7 +24,8 @@ async fn add_link(
     if payload.original_url.len() > 200 {
         return Err("<div class=\"p-2 animate-in text-red-900 bg-red-300 border-2 border-red-600\">URL must be less than 200 characters long</div>".to_string());
     }
-    if !payload.original_url.starts_with("http://") || !payload.original_url.starts_with("https://")
+    if !(payload.original_url.starts_with("http://")
+        || payload.original_url.starts_with("https://"))
     {
         return Err("<div class=\"p-2 animate-in text-red-900 bg-red-300 border-2 border-red-600\">URL must start with http:// or https://</div>".to_string());
     }
@@ -40,7 +40,7 @@ async fn add_link(
     //return html
 
     Ok(format!(
-        "<div class=\"p-2 text-green-900 animate-in bg-green-300 border-2 border-green-600\">Your link: <a href=\"https://lurl.es/{}\" target=\"_blank\">https://lurl.es/{}</a></div>",
+        "<div class=\"p-2 text-green-900 animate-in bg-green-300 border-2 border-green-600\">Your link: <a href=\"http://localhost:3001/{}\" target=\"_blank\">http://localhost:3001/{}</a></div>",
         link.short_url, link.short_url
     ))
 }
