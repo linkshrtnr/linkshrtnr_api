@@ -29,8 +29,8 @@ Follow these steps to get LinkShrtnr up and running:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/linkshrinker.git
-   cd linkshrinker
+   git clone https://github.com/ikurotime/linkshrtnr_api.git
+   cd linkshrtnr_api
    ```
 2. Set up your environment variables:
 
