@@ -16,15 +16,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Login
-        run: |
-          echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
       - name: Build and Publish
         run: |
           echo " " >> Cargo.toml
           echo [env] >> Cargo.toml
           echo DATABASE_URL = \"${{ secrets.DATABASE_URL }}\" >> Cargo.toml
-          docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} --cache-from=/tmp/.buildx-cache --cache-to=/tmp/.buildx-cache
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
   deploy:
@@ -33,9 +37,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Cache SSH keys
+        uses: actions/cache@v2
+        with:
+          path: ~/.ssh
+          key: ${{ runner.os }}-ssh-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-ssh-
       - name: install ssh keys
-        # check this thread to understand why its needed:
-        # <https://stackoverflow.com/a/70447517>
         run: |
           install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
