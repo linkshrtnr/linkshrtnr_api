@@ -556,10 +556,6 @@ video {
   z-index: 10;
 }
 
-.m-20 {
-  margin: 5rem;
-}
-
 .my-20 {
   margin-top: 5rem;
   margin-bottom: 5rem;
@@ -575,10 +571,6 @@ video {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.mt-10 {
-  margin-top: 2.5rem;
 }
 
 .block {
@@ -918,10 +910,6 @@ video {
 }
 
 @media (min-width: 1024px) {
-  .lg\:m-20 {
-    margin: 5rem;
-  }
-
   .lg\:flex {
     display: flex;
   }
