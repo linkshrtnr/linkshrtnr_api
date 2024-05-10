@@ -26,5 +26,16 @@
     <script>
       var tabs = new Tabby('[data-tabs]')
     </script>
+<script>
+  const originalUrlInput = document.getElementById('original_url_input');
+  const generateButton = document.getElementById('generate_button');
+  generateButton.disabled = true;
+  originalUrlInput.addEventListener('input', function() {
+    if (!originalUrlInput.value.trim() === '') {
+      generateButton.disabled = false;
+    }
+  });
+</script>
+
   </body>
 </html>
