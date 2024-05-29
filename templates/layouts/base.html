@@ -31,7 +31,7 @@
   const generateButton = document.getElementById('generate_button');
   generateButton.disabled = true;
   originalUrlInput.addEventListener('input', function() {
-    if (!originalUrlInput.value.trim() === '') {
+    if (originalUrlInput.value.trim() !== '') {
       generateButton.disabled = false;
     }
   });
